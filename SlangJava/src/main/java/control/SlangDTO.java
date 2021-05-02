@@ -6,8 +6,10 @@
 package control;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,8 +28,7 @@ public class SlangDTO {
     
     
     public HashMap<String,List<String>> m=new HashMap<String,List<String>>();
-    public static List<String> historySlangWord=new ArrayList();
-    public static Scanner word= new Scanner(System.in);
+    public List<String> historySlangWord=new ArrayList();
     public SlangDTO()
     {
         GetData();
@@ -36,7 +37,7 @@ public class SlangDTO {
     {
         try
         {
-           File f=new File("E:\\Liehthong\\java_project\\java_dictionary\\test\\data\\history.txt");
+           File f=new File("history.txt");
            FileReader fr=new FileReader(f);
            BufferedReader br=new BufferedReader(fr);
            String line;
@@ -56,7 +57,7 @@ public class SlangDTO {
     {
         try
         {
-            File f=new File("E:\\Liehthong\\java_project\\java_dictionary\\test\\data\\slang.txt");
+            File f=new File("slang.txt");
             FileReader fr=new FileReader(f);
             BufferedReader br=new BufferedReader(fr);
             String line;
@@ -121,7 +122,6 @@ public class SlangDTO {
         t.add(check1);
         if (m.containsKey(check))
         {
-            
             int confirm = JOptionPane.showConfirmDialog(null,"Do you want to overwrite");
             if (confirm==0) m.put(check,t);
             else
@@ -142,59 +142,28 @@ public class SlangDTO {
 
 
     //5.Edit SlangWord
-    public void EditSlangWord(String check)
+    public void EditSlangWord(String check, String check1)
     {
         check=check.toUpperCase();
-        if (!m.containsKey(check))
+        List<String> t=new ArrayList();
+        t.add(check1);
+        if (m.containsKey(check))
         {
-            JOptionPane.showMessageDialog(null, "this slang word does not exist");
-        }
-
-        List<String> showCase=m.get(check);
-        List<String> rshowCase=new ArrayList();
-        for (String i:showCase)
-        {
-            rshowCase.add(i);
-        }
-        int count=1;
-        for (String i: showCase)
-        {
-            System.out.println(count+ "." + i);
-            count++;
-        }
-        System.out.println("What word u want to change: ");
-        int index=word.nextInt();
-
-        System.out.println("What do u want: ");
-        System.out.println("YOUR CHOICE:");
-        int choice=word.nextInt();
-        String pass=word.nextLine();
-        //replace definition 
-        if (choice==1) 
-        {
-            rshowCase.remove(index-1);
-            System.out.print("What is the new definition : ");
-            String temp=word.nextLine();
-            rshowCase.add(temp);
-            m.put(check,rshowCase);
-        }
-        //Delete Definition
-        else if (choice==2)
-        {
-            if (rshowCase.size()==1) 
+            int confirm = JOptionPane.showConfirmDialog(null,"Do you want to overwrite");
+            if (confirm==0) m.put(check,t);
+            else
             {
-                System.out.println("You can't delete this ");
+                List<String> i=m.get(check);
+                for (String j:i)
+                {
+                    t.add(j);
+                }
+                m.put(check,t);
             }
-            rshowCase.remove(index-1);
-            m.put(check,rshowCase);
         }
-         //Add Definition
-        else if (choice==3)
+        else
         {
-            System.out.print("What is the new definition : ");
-            String temp=word.nextLine();
-            rshowCase.add(temp);
-            m.put(check,rshowCase);
+            m.put(check,t);
         }
     }
 
@@ -253,5 +222,46 @@ public class SlangDTO {
             }else count++;
         }
         return ans;
+    }
+    public void updateHistory(){
+        try {
+            File f = new File("./data/history.txt");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (String temp : historySlangWord) {
+                fw.write(temp + "\n");
+            }
+            fw.close();
+            bw.close();
+        }
+        catch (Exception ex) {
+            System.out.println("Error: "+ex);
+        }
+    }
+
+    //Update File
+    public void updateFile()
+    {
+        try {
+            File f = new File("slang.txt");
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (String i: m.keySet())
+            {
+                fw.write(i +"`");
+                List<String> temp=m.get(i);
+                for (int t=0;t<temp.size();t++)
+                {
+                    fw.write(temp.get(t));
+                    if (t+1<temp.size()) fw.write("|");
+                }
+                fw.write("\n");
+            }
+            fw.close();
+            bw.close();
+        }
+        catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
     }
 }
