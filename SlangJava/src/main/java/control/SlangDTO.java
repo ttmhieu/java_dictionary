@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,7 +36,7 @@ public class SlangDTO {
     {
         try
         {
-           File f=new File("./data/history.txt");
+           File f=new File("E:\\Liehthong\\java_project\\java_dictionary\\test\\data\\history.txt");
            FileReader fr=new FileReader(f);
            BufferedReader br=new BufferedReader(fr);
            String line;
@@ -87,7 +88,7 @@ public class SlangDTO {
         return test;
     }
         //2.Find Definition
-    public void FindDefinition(String check)
+    public List<String> FindDefinition(String check)
     {
         historySlangWord.add(check);
         List<String> answer=new ArrayList();
@@ -99,7 +100,7 @@ public class SlangDTO {
             }
 
         }
-        System.out.println(answer);
+        return answer;
     }
     
     //3.History Searching
@@ -120,8 +121,9 @@ public class SlangDTO {
         t.add(check1);
         if (m.containsKey(check))
         {
-            String confirm=word.nextLine();
-            if (confirm.equals("Y") || confirm.equals("y") ) m.put(check,t);
+            
+            int confirm = JOptionPane.showConfirmDialog(null,"Do you want to overwrite");
+            if (confirm==0) m.put(check,t);
             else
             {
                 List<String> i=m.get(check);
@@ -135,20 +137,18 @@ public class SlangDTO {
         else
         {
             m.put(check,t);
-            System.out.println("Add New Slang Word Successfully");
         }
     }
 
 
     //5.Edit SlangWord
-    public void EditSlangWord(){
-        String check=word.nextLine();
+    public void EditSlangWord(String check)
+    {
         check=check.toUpperCase();
         if (!m.containsKey(check))
         {
-            System.out.println("This slangword dont't exist");
+            JOptionPane.showMessageDialog(null, "this slang word does not exist");
         }
-        System.out.println("Here is the definition: " );
 
         List<String> showCase=m.get(check);
         List<String> rshowCase=new ArrayList();
@@ -166,12 +166,10 @@ public class SlangDTO {
         int index=word.nextInt();
 
         System.out.println("What do u want: ");
-        System.out.println("1. Replace Definition ");
-        System.out.println("2. Delete Definition ");
-        System.out.println("3. Add Definition ");
         System.out.println("YOUR CHOICE:");
         int choice=word.nextInt();
         String pass=word.nextLine();
+        //replace definition 
         if (choice==1) 
         {
             rshowCase.remove(index-1);
@@ -180,6 +178,7 @@ public class SlangDTO {
             rshowCase.add(temp);
             m.put(check,rshowCase);
         }
+        //Delete Definition
         else if (choice==2)
         {
             if (rshowCase.size()==1) 
@@ -189,6 +188,7 @@ public class SlangDTO {
             rshowCase.remove(index-1);
             m.put(check,rshowCase);
         }
+         //Add Definition
         else if (choice==3)
         {
             System.out.print("What is the new definition : ");
@@ -201,12 +201,10 @@ public class SlangDTO {
     //6.Remove Slang Word
     public void RemoveSlangWord(String check)
     {
-        System.out.println("What slangword u want to remove: ");
         if (m.containsKey(check))
         {
-            System.out.println("Are u sure u want to remove it: (Y/N) ");
-            String confirm=word.nextLine();
-            if (confirm.equals("Y") || confirm.equals("y") ) m.remove(check);
+            int confirm=JOptionPane.showConfirmDialog(null, "Are you sure?");
+            if (confirm==0) m.remove(check);
         }
     }
 
@@ -230,13 +228,13 @@ public class SlangDTO {
                    m.put(s[0],temp);
                }
            }
-        fr.close();
-        br.close();
-    }
-    catch (Exception ex)
-    {
-        System.out.println("ERROR"+ex);
-    }
+            fr.close();
+            br.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println("ERROR"+ex);
+        }
         System.out.println("Reset List To Default !!!");
     }
 

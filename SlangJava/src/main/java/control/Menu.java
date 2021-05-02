@@ -38,7 +38,7 @@ public class Menu extends javax.swing.JFrame {
         KeyWord = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         ResultField = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
+        DefinitionSearch = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTextField2 = new javax.swing.JTextField();
         jButton11 = new javax.swing.JButton();
@@ -92,7 +92,12 @@ public class Menu extends javax.swing.JFrame {
         ResultField.setName("ResultField"); // NOI18N
         jScrollPane1.setViewportView(ResultField);
 
-        jButton2.setText("Tìm kiếm theo definition");
+        DefinitionSearch.setText("Tìm kiếm theo definition");
+        DefinitionSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DefinitionSearchMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,7 +113,7 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(KeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
+                            .addComponent(DefinitionSearch)
                             .addComponent(jButton1))))
                 .addContainerGap(661, Short.MAX_VALUE))
         );
@@ -120,7 +125,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(KeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(DefinitionSearch)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(312, Short.MAX_VALUE))
@@ -375,14 +380,35 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        
+        ResultField.setText("");
         
         String keyword = KeyWord.getText();
         
-        List<String> result=dTO.FindSlangWord(keyword);
         
-        ResultField.setText(result.toString());
+        List<String> result=dTO.FindSlangWord(keyword);
+        if(result==null)
+        {
+            ResultField.setText("Không tìm thấy word");
+        }
+        else
+            ResultField.setText(result.toString());
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void DefinitionSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DefinitionSearchMouseClicked
+        // TODO add your handling code here:
+        ResultField.setText("");
+        
+        String keyword = KeyWord.getText();
+        
+        
+        List<String> result=dTO.FindDefinition(keyword);
+        if(result==null)
+        {
+            ResultField.setText("Không tìm thấy word");
+        }
+        else
+            ResultField.setText(result.toString());
+    }//GEN-LAST:event_DefinitionSearchMouseClicked
 
     /**
      * @param args the command line arguments
@@ -420,12 +446,12 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton DefinitionSearch;
     private javax.swing.JTextField KeyWord;
     private javax.swing.JTextArea ResultField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
