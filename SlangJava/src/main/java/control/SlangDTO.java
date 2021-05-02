@@ -107,11 +107,8 @@ public class SlangDTO {
     //3.History Searching
     public void ShowHistorySlangWord()
     {
+        updateHistory();
         GetHistory();
-        for (String temp: historySlangWord)
-        {
-            System.out.println(temp);
-        }
     }
 
     //4.Add Slang Word
@@ -138,6 +135,7 @@ public class SlangDTO {
         {
             m.put(check,t);
         }
+        updateFile();
     }
 
 
@@ -165,6 +163,7 @@ public class SlangDTO {
         {
             m.put(check,t);
         }
+        updateFile();
     }
 
     //6.Remove Slang Word
@@ -223,9 +222,10 @@ public class SlangDTO {
         }
         return ans;
     }
+    
     public void updateHistory(){
         try {
-            File f = new File("./data/history.txt");
+            File f = new File("history.txt");
             FileWriter fw = new FileWriter(f);
             BufferedWriter bw = new BufferedWriter(fw);
             for (String temp : historySlangWord) {
@@ -263,5 +263,15 @@ public class SlangDTO {
         catch (Exception ex) {
             System.out.println(ex.toString());
         }
+    }
+    //Check answer
+    public boolean CheckAnswer(String key,String text)
+    {
+        String data=m.get(key).get(0);
+        if(text.equals(data))
+        {
+            return true;
+        }
+        return false;
     }
 }
