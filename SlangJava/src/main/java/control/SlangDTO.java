@@ -24,15 +24,38 @@ import java.util.Scanner;
 public class SlangDTO {
     
     
-    public static HashMap<String,List<String>> m=new HashMap<String,List<String>>();
+    public HashMap<String,List<String>> m=new HashMap<String,List<String>>();
     public static List<String> historySlangWord=new ArrayList();
     public static Scanner word= new Scanner(System.in);
-    
-    public void GetData(String path)
+    public SlangDTO()
+    {
+        GetData();
+    }
+    public void GetHistory()
     {
         try
         {
-            File f=new File(path);
+           File f=new File("./data/history.txt");
+           FileReader fr=new FileReader(f);
+           BufferedReader br=new BufferedReader(fr);
+           String line;
+           while((line=br.readLine())!=null)
+           {
+               historySlangWord.add(line);
+           }
+           fr.close();
+           br.close();
+       }
+       catch (Exception ex)
+       {
+           System.out.println("ERROR"+ex);
+       }
+    }
+    public void GetData()
+    {
+        try
+        {
+            File f=new File("E:\\Liehthong\\java_project\\java_dictionary\\test\\data\\slang.txt");
             FileReader fr=new FileReader(f);
             BufferedReader br=new BufferedReader(fr);
             String line;
@@ -56,20 +79,16 @@ public class SlangDTO {
     }
     
     //1.Find Slang Word
-    public static void FindSlangWord()
+    public List<String> FindSlangWord(String check)
     {
-        System.out.print("What word u want to find: ");
-        String check=word.nextLine();
         check=check.toUpperCase();
         List<String> test=m.get(check);
         historySlangWord.add(check);
-        System.out.println(test);
+        return test;
     }
         //2.Find Definition
-    public static void FindDefinition()
+    public void FindDefinition(String check)
     {
-        System.out.println("What definition u want to find: ");
-        String check=word.nextLine();
         historySlangWord.add(check);
         List<String> answer=new ArrayList();
         for (String i: m.keySet())
@@ -84,9 +103,9 @@ public class SlangDTO {
     }
     
     //3.History Searching
-    static void ShowHistorySlangWord()
+    public void ShowHistorySlangWord()
     {
-        System.out.println("Your history search is: ");
+        GetHistory();
         for (String temp: historySlangWord)
         {
             System.out.println(temp);
@@ -94,18 +113,13 @@ public class SlangDTO {
     }
 
     //4.Add Slang Word
-    public static void CreateSlangWord()
+    public void CreateSlangWord(String check, String check1)
     {
-        System.out.println("What is your new Slang Word: ");
-        String check=word.nextLine();
         check=check.toUpperCase();
-        System.out.println("What is the definition: ");
-        String check1=word.nextLine();
         List<String> t=new ArrayList();
         t.add(check1);
         if (m.containsKey(check))
         {
-            System.out.println("Do u want to overwrite: (Y/N) ");
             String confirm=word.nextLine();
             if (confirm.equals("Y") || confirm.equals("y") ) m.put(check,t);
             else
@@ -127,8 +141,7 @@ public class SlangDTO {
 
 
     //5.Edit SlangWord
-    static void EditSlangWord(){
-        System.out.print("What slangword u want to edit: ");
+    public void EditSlangWord(){
         String check=word.nextLine();
         check=check.toUpperCase();
         if (!m.containsKey(check))
@@ -186,10 +199,9 @@ public class SlangDTO {
     }
 
     //6.Remove Slang Word
-    static void RemoveSlangWord()
+    public void RemoveSlangWord(String check)
     {
         System.out.println("What slangword u want to remove: ");
-        String check=word.nextLine();
         if (m.containsKey(check))
         {
             System.out.println("Are u sure u want to remove it: (Y/N) ");
@@ -199,25 +211,25 @@ public class SlangDTO {
     }
 
     //7.Reset List
-    public static void ResetSlangDictionary()
+    public void ResetSlangDictionary()
     {
         m.clear();
         try
-     {
-        File f=new File("./data/default.txt");
-        FileReader fr=new FileReader(f);
-        BufferedReader br=new BufferedReader(fr);
-        String line;
-        while((line=br.readLine())!=null)
         {
-            if (line.contains("`"))
-            {
-                String[] s=line.split("`");
-                String[] tmp=s[1].split("\\|");
-                List<String> temp=Arrays.asList(tmp);
-                m.put(s[0],temp);
-            }
-        }
+           File f=new File("./data/default.txt");
+           FileReader fr=new FileReader(f);
+           BufferedReader br=new BufferedReader(fr);
+           String line;
+           while((line=br.readLine())!=null)
+           {
+               if (line.contains("`"))
+               {
+                   String[] s=line.split("`");
+                   String[] tmp=s[1].split("\\|");
+                   List<String> temp=Arrays.asList(tmp);
+                   m.put(s[0],temp);
+               }
+           }
         fr.close();
         br.close();
     }
@@ -229,7 +241,7 @@ public class SlangDTO {
     }
 
     //8.Random Slang Word
-    public static String RandomSlangWord(){
+    public String RandomSlangWord(){
         int count=0;
         Random rd=new Random();
         int magicNumber=rd.nextInt(m.size());
