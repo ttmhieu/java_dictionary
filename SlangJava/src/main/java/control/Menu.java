@@ -36,7 +36,7 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton5 = new javax.swing.JButton();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        Funnygame = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         KeyWord = new javax.swing.JTextField();
@@ -49,7 +49,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         AddSlang = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnRandom = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         LoadHistory = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -63,14 +63,20 @@ public class Menu extends javax.swing.JFrame {
         lbAnswerA = new javax.swing.JLabel();
         lbAnswerC = new javax.swing.JLabel();
         lbAnswerD = new javax.swing.JLabel();
-        lbAnswerA1 = new javax.swing.JLabel();
+        lbQuestion = new javax.swing.JLabel();
+        StartGame = new javax.swing.JButton();
 
         jButton5.setText("Chỉnh sửa Slang word");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1100, 600));
 
-        jTabbedPane2.setPreferredSize(new java.awt.Dimension(600, 957));
+        Funnygame.setPreferredSize(new java.awt.Dimension(600, 957));
+        Funnygame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                FunnygameMouseClicked(evt);
+            }
+        });
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1083, 600));
 
@@ -137,11 +143,11 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton8.setText("Random slang");
-        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRandom.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnRandom.setText("Random slang");
+        btnRandom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton8MouseClicked(evt);
+                btnRandomMouseClicked(evt);
             }
         });
 
@@ -175,7 +181,7 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(DefinitionSearch))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton8)
+                        .addComponent(btnRandom)
                         .addGap(203, 203, 203))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -190,7 +196,7 @@ public class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jButton8))
+                    .addComponent(btnRandom))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -207,7 +213,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(558, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Tìm kiếm", jPanel1);
+        Funnygame.addTab("Tìm kiếm", jPanel1);
 
         LoadHistory.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         LoadHistory.setText("Load History");
@@ -245,7 +251,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(577, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Lịch sử tìm kiếm", jPanel5);
+        Funnygame.addTab("Lịch sử tìm kiếm", jPanel5);
 
         btnAnswerA.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         btnAnswerA.setText("A");
@@ -257,6 +263,11 @@ public class Menu extends javax.swing.JFrame {
 
         btnAnswerB.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         btnAnswerB.setText("B");
+        btnAnswerB.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAnswerBMouseClicked(evt);
+            }
+        });
         btnAnswerB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 med(evt);
@@ -265,9 +276,19 @@ public class Menu extends javax.swing.JFrame {
 
         btnAnswerC.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         btnAnswerC.setText("C");
+        btnAnswerC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAnswerCMouseClicked(evt);
+            }
+        });
 
         btnAnswerD.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         btnAnswerD.setText("D");
+        btnAnswerD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAnswerDMouseClicked(evt);
+            }
+        });
 
         lbAnswerB.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbAnswerB.setText("Answer");
@@ -281,8 +302,15 @@ public class Menu extends javax.swing.JFrame {
         lbAnswerD.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbAnswerD.setText("Answer");
 
-        lbAnswerA1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbAnswerA1.setText("Answer");
+        lbQuestion.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        lbQuestion.setText("Question");
+
+        StartGame.setText("start");
+        StartGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                StartGameMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -290,11 +318,6 @@ public class Menu extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAnswerA, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbAnswerA, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -305,20 +328,31 @@ public class Menu extends javax.swing.JFrame {
                             .addComponent(lbAnswerD, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbAnswerC, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAnswerB, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbAnswerB, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(133, 133, 133)
-                        .addComponent(lbAnswerA1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lbQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(StartGame))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnAnswerA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAnswerB, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(lbAnswerB, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(lbAnswerA, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(610, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(lbAnswerA1, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addComponent(StartGame)
+                .addGap(3, 3, 3)
+                .addComponent(lbQuestion, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbAnswerA, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -338,7 +372,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(473, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Đố vui", jPanel8);
+        Funnygame.addTab("Đố vui", jPanel8);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -346,17 +380,17 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 29, Short.MAX_VALUE)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Funnygame, javax.swing.GroupLayout.PREFERRED_SIZE, 1071, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(43, Short.MAX_VALUE)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Funnygame, javax.swing.GroupLayout.PREFERRED_SIZE, 925, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
 
-        jTabbedPane2.getAccessibleContext().setAccessibleName("Find");
+        Funnygame.getAccessibleContext().setAccessibleName("Find");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -379,18 +413,20 @@ public class Menu extends javax.swing.JFrame {
 
     private void DefinitionSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DefinitionSearchMouseClicked
         // TODO add your handling code here:
-        ResultField.setText("");
         
-        String keyword = KeyWord.getText();
-        
-        
+        String keyword = ResultField.getText();
+
         List<String> result=dTO.FindDefinition(keyword);
-        if(result==null)
+        if(result == null || result.isEmpty())
         {
-            ResultField.setText("Không tìm thấy word");
+            KeyWord.setText("Không tìm thấy word");
         }
         else
-            ResultField.setText(result.toString());
+        {
+            String tmp = dTO.method(result.toString());
+            KeyWord.setText(tmp);
+        }
+            
     }//GEN-LAST:event_DefinitionSearchMouseClicked
 
     private void AddSlangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddSlangMouseClicked
@@ -424,10 +460,12 @@ public class Menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_LoadHistoryMouseClicked
 
-    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+    private void btnRandomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRandomMouseClicked
         // TODO add your handling code here:
-        dTO.RandomSlangWord();
-    }//GEN-LAST:event_jButton8MouseClicked
+        KeyWord.setText("");
+        String text = dTO.RandomSlangWord();
+        KeyWord.setText(text);
+    }//GEN-LAST:event_btnRandomMouseClicked
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
         // TODO add your handling code here:
@@ -441,9 +479,74 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Correct!!!");
         }
         else
-            return;
+            JOptionPane.showMessageDialog(null, "INCOrRECT!!!");
     }//GEN-LAST:event_btnAnswerAMouseClicked
+    String questionKey = dTO.RandomSlangWord();
+    private void StartGameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_StartGameMouseClicked
+        // TODO add your handling code here:
+        lbQuestion.setVisible(true);
+        btnAnswerA.setVisible(true);
+        btnAnswerB.setVisible(true);
+        btnAnswerC.setVisible(true);
+        btnAnswerD.setVisible(true);
+        lbAnswerA.setVisible(true);
+        lbAnswerB.setVisible(true);
+        lbAnswerC.setVisible(true);
+        lbAnswerD.setVisible(true);
+        
+        
+        
+        lbQuestion.setText(String.format("what is the meaning of %s", questionKey));
+        lbAnswerA.setText(dTO.method(dTO.FindSlangWord(dTO.RandomSlangWord()).toString()));
+        lbAnswerB.setText(dTO.method(dTO.FindSlangWord(questionKey).toString()));
+        lbAnswerC.setText(dTO.method(dTO.FindSlangWord(dTO.RandomSlangWord()).toString()));
+        lbAnswerD.setText(dTO.method(dTO.FindSlangWord(dTO.RandomSlangWord()).toString()));
+    }//GEN-LAST:event_StartGameMouseClicked
 
+    private void FunnygameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FunnygameMouseClicked
+        // TODO add your handling code here:
+        lbQuestion.setVisible(false);
+        btnAnswerA.setVisible(false);
+        btnAnswerB.setVisible(false);
+        btnAnswerC.setVisible(false);
+        btnAnswerD.setVisible(false);
+        lbAnswerA.setVisible(false);
+        lbAnswerB.setVisible(false);
+        lbAnswerC.setVisible(false);
+        lbAnswerD.setVisible(false);
+    }//GEN-LAST:event_FunnygameMouseClicked
+
+    private void btnAnswerBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnswerBMouseClicked
+        // TODO add your handling code here:
+        String keyString=lbQuestion.getText();
+        if(lbAnswerB.getText().equals(dTO.method(dTO.m.get(questionKey).toString())))
+        {
+            JOptionPane.showMessageDialog(null, "Correct!!!");
+        }
+        else
+            JOptionPane.showMessageDialog(null, "INCOrRECT!!!");
+    }//GEN-LAST:event_btnAnswerBMouseClicked
+
+    private void btnAnswerCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnswerCMouseClicked
+        // TODO add your handling code here:
+        if(lbAnswerC.getText().equals(dTO.m.get("")))
+        {
+            JOptionPane.showMessageDialog(null, "Correct!!!");
+        }
+        else
+            JOptionPane.showMessageDialog(null, "INCOrRECT!!!");
+    }//GEN-LAST:event_btnAnswerCMouseClicked
+
+    private void btnAnswerDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnswerDMouseClicked
+        // TODO add your handling code here:
+        if(lbAnswerD.getText().equals(dTO.m.get("")))
+        {
+            JOptionPane.showMessageDialog(null, "Correct!!!");
+        }
+        else
+            JOptionPane.showMessageDialog(null, "INCOrRECT!!!");
+    }//GEN-LAST:event_btnAnswerDMouseClicked
+    
     /**
      * @param args the command line arguments
      */
@@ -475,6 +578,7 @@ public class Menu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);
+                
             }
         });
         
@@ -485,18 +589,20 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton DefinitionSearch;
     private javax.swing.JButton Delete;
     private javax.swing.JButton Edit;
+    private javax.swing.JTabbedPane Funnygame;
     private javax.swing.JTextArea HistoryField;
     private javax.swing.JTextField KeyWord;
     private javax.swing.JButton LoadHistory;
     private javax.swing.JTextArea ResultField;
+    private javax.swing.JButton StartGame;
     private javax.swing.JButton btnAnswerA;
     private javax.swing.JButton btnAnswerB;
     private javax.swing.JButton btnAnswerC;
     private javax.swing.JButton btnAnswerD;
+    private javax.swing.JButton btnRandom;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -504,11 +610,10 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JLabel lbAnswerA;
-    private javax.swing.JLabel lbAnswerA1;
     private javax.swing.JLabel lbAnswerB;
     private javax.swing.JLabel lbAnswerC;
     private javax.swing.JLabel lbAnswerD;
+    private javax.swing.JLabel lbQuestion;
     // End of variables declaration//GEN-END:variables
 }

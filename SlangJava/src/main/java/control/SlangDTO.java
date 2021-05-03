@@ -37,7 +37,7 @@ public class SlangDTO {
     {
         try
         {
-           File f=new File("history.txt");
+           File f=new File("data/history.txt");
            FileReader fr=new FileReader(f);
            BufferedReader br=new BufferedReader(fr);
            String line;
@@ -57,7 +57,7 @@ public class SlangDTO {
     {
         try
         {
-            File f=new File("slang.txt");
+            File f=new File("data/slang.txt");
             FileReader fr=new FileReader(f);
             BufferedReader br=new BufferedReader(fr);
             String line;
@@ -182,7 +182,7 @@ public class SlangDTO {
         m.clear();
         try
         {
-           File f=new File("./data/default.txt");
+           File f=new File("data/default.txt");
            FileReader fr=new FileReader(f);
            BufferedReader br=new BufferedReader(fr);
            String line;
@@ -203,7 +203,7 @@ public class SlangDTO {
         {
             System.out.println("ERROR"+ex);
         }
-        System.out.println("Reset List To Default !!!");
+        JOptionPane.showMessageDialog(null, "Reset List To Default !!!");
     }
 
     //8.Random Slang Word
@@ -273,5 +273,13 @@ public class SlangDTO {
             return true;
         }
         return false;
+    }
+    
+    public String method(String str) 
+    {
+        if (str != null && str.length() > 0) {
+            str = str.substring(1, str.length() - 1);
+        }
+        return str;
     }
 }
