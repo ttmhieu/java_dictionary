@@ -408,7 +408,11 @@ public class Menu extends javax.swing.JFrame {
             ResultField.setText("Không tìm thấy word");
         }
         else
-            ResultField.setText(result.toString());
+        {
+            String tmp = dTO.method(result.toString());
+            ResultField.setText(tmp);
+        }
+            
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void DefinitionSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DefinitionSearchMouseClicked
